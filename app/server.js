@@ -4,6 +4,7 @@ const cors = require('cors');
 const { Client } = require('pg');
 const helmet = require('helmet');
 const dotenv = require('dotenv');
+const { randomUUID } = require('crypto');
 
 dotenv.config();
 
