@@ -1,0 +1,187 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    background-image: url("wallpaper.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    height: 100vh;
+    overflow: scroll;
+}
+
+.container {
+    max-width: 600px;
+    width: 400px;
+    background: #fff;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 30px;
+    color: #333;
+    font-weight: bold;
+    margin: auto; 
+}
+
+h2 {
+    font-size: 15px;
+    color: #333;
+    font-weight: lighter;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 15px;
+    color: #333;
+    font-weight: lighter;
+    margin: auto;
+    margin-left: 20px;
+}
+
+.sensor-data {
+    width: 110%; /* Adjust the width to leave space for the energy bar */
+}
+
+.energy-container {
+    width: 10px; /* Width of the energy bar container */
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.energy-bar {
+    height: 263px; /* Height of the energy bar */
+    background-color: #646464;
+    border-radius: 4px;
+    position: relative;
+    bottom: 3px;
+}
+
+.energy-level {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #4CAF50;
+    transition: height 2s ease;
+    border-radius: 4px;
+}
+
+.data-item {
+    background: #e9e9e9;
+    margin-bottom: 10px;
+    margin-left: -30px;
+    padding: 5px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.meta-data-item {
+    font-size: 15px;
+    padding: 5px;
+    display: flex;
+}
+
+.data-title, .data-value {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.data-value {
+    font-weight: lighter;
+    margin-left: 10px;
+}
+
+row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.plot-container {
+    width: 220px;  /* Adjust width as needed */
+    height: 70px; /* Adjust height for smaller plots */
+    margin-bottom: 0px; /* Spacing between plots */
+}
+
+.energy-tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 105%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show the tooltip when hovering */
+.energy-container:hover .energy-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Tooltip arrow */
+.energy-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+column {
+    height: 100%; /* Adjust the height as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.numeric-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Evenly spaces the children vertically */
+    height: 100%; /* Adjust the height as needed */
+}
+
+/* Style for individual sensor numeric containers */
+.sensor-numeric {
+    display: flex;
+    justify-content: center; /* Center-align the content horizontally */
+    align-items: center; /* Center-align the content vertically */
+    flex-grow: 1; /* Allows each item to grow evenly */
+}
+
+/* Style for the numeric values */
+.sensor-numeric-number {
+    font-size: 1.2em; /* Adjust the font size as needed */
+    /* Additional styling (colors, fonts, etc.) can be added here */
+}
+
+.numeric-unit {
+    margin-left: 3px;
+    font-size: 0.8em; /* Adjust the font size as needed */
+    color: grey;
+}

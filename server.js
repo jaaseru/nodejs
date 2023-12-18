@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const { Client } = require('pg');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || env.PORT;
 const data = {}
 const helmet = require('helmet');
 
@@ -23,14 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-// app.use(helmet.contentSecurityPolicy({
-//   directives: {
-//     defaultSrc: ["'self'"],
-//     imgSrc: ["'self'", 'https://blomsterpinne-v2-0e2f33fcc261.herokuapp.com']
-//     // Add other directives as needed
-//   }
-// }));
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'xiaomi.html'));
 });
@@ -38,7 +30,6 @@ app.get('/', (req, res) => {
 
 
 async function queryDatabase(query) {
-  // If no specific query is provided, use the default query to get the last 24 hours of data
   if (!query) {
     query = `
       SELECT * 
