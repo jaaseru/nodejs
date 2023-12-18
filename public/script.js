@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+
 let structuredData = {};
 let latestTimestampPlotted = null;
 

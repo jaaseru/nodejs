@@ -3,13 +3,9 @@
     "version": "1.0.0",
     "description": "My app",
     "main": "server.js",
-    "env": {
-        "PORT": 3000,
-        "API_URL": "https://nodejs-production-ca72.up.railway.app",
-        "WEB_POLLING_INTERVAL": 30
-    },
     "dependencies": {
         "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
         "express": "^4.17.1",
         "helmet": "^7.1.0",
         "pg": "^8.11.3",

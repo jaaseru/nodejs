@@ -6,6 +6,8 @@ const port = process.env.PORT || env.PORT;
 const data = {}
 const helmet = require('helmet');
 const { randomUUID } = require('crypto');
+require('dotenv').config();
+
 
 
 
