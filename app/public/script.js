@@ -127,8 +127,7 @@ function updateEnergyAndTime(deviceId, energy) {
     } else {
         console.error(`Element not found: energy_${deviceId}`);
     }
-}
-    }
+
     if (elementTimestamp) {
         const date = new Date(timestamp);
         const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false };
