@@ -297,7 +297,7 @@ function getLatestData() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ latestTimestamp: latestTimestamp })
     };
-    fetch(process.env.API_URL + '/api/data_timeseries_update', request)
+    fetch(apiUrl + '/api/data_timeseries_update', request)
         .then(response => response.json())
         .then(rawData => {
             console.log(rawData);

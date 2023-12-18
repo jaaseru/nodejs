@@ -97,8 +97,6 @@ async function removeOldestData() {
               )
           `);
           console.log("Deleted the oldest 100 rows.");
-      } else {
-          console.log("No need to delete rows. The total count is less than or equal to 2000.");
       }
   } catch (error) {
       console.error("Error in removeOldestData:", error);
@@ -108,16 +106,13 @@ async function removeOldestData() {
 
 app.post('/api/data', async (req, res) => {
   // Get the device ID from the request body
-  console.log("Body:\n", req.body);
 
   // Remove the oldest data if the total number of rows is more than 2000
   await removeOldestData();
-
-  let uuid = randomUUID();
   
   // Insert data into the database
-  const insertQuery = 'INSERT INTO xiaomi_data (uuid, device_id, device_name, timestamp, firmware, energy, temperature, humidity, brightness, conductivity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
-  let err = await client.query(insertQuery, [uuid, req.body.device_id, req.body.device_name, req.body.timestamp, req.body.firmware, req.body.data.energy, req.body.data.temperature, req.body.data.humidity, req.body.data.brightness, req.body.data.conductivity]);
+  const insertQuery = 'INSERT INTO xiaomi_data (device_id, device_name, timestamp, firmware, energy, temperature, humidity, brightness, conductivity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+  let err = await client.query(insertQuery, [req.body.device_id, req.body.device_name, req.body.timestamp, req.body.firmware, req.body.data.energy, req.body.data.temperature, req.body.data.humidity, req.body.data.brightness, req.body.data.conductivity]);
 
   // return if error
   if (err.error) {
@@ -132,15 +127,8 @@ app.post('/api/data', async (req, res) => {
   res.status(200).json({
     message: 'Data received successfully'
   });
+  console.log('Data received successfully');
 });
-
-
-// app.get('/api/data', (req, res) => {
-//   res.status(200).json({
-//     message: 'Data received successfully',
-//     data: data
-//   });
-// });
 
 
 app.get('/api/data_timeseries', async (req, res) => {
