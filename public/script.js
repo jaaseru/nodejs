@@ -1,5 +1,5 @@
-require('dotenv').config();
-
+const apiUrl = `${apiUrl}`;
+const pollingInterval = parseInt(`${pollingInterval}`);
 
 let structuredData = {};
 let latestTimestampPlotted = null;
@@ -72,8 +72,6 @@ function createDeviceHTML(deviceNumber) {
     `;
 }
 
-
-
 function updateDeviceUI(deviceData, deviceNumber) {
     let container = document.getElementById(`container_${deviceNumber}`);
     if (!container) {
@@ -88,9 +86,7 @@ function updateDeviceUI(deviceData, deviceNumber) {
     // Update mac and firmware
     document.getElementById(`device_id_${deviceNumber}`).textContent = deviceData.device_id;
     // document.getElementById(`firmware_${deviceNumber}`).textContent = deviceData.firmware;
-
 }
-
 
 function updateEnergyTooltip(deviceNumber, energyLevel) {
     const energyElement = document.getElementById(`energy_${deviceNumber}`);
@@ -108,7 +104,6 @@ function updateEnergyTooltip(deviceNumber, energyLevel) {
     energyElement.appendChild(tooltip);
 }
 
-
 function makeDivsForDevices(structuredData) {
     Object.keys(structuredData).forEach(deviceId => {
         const deviceData = structuredData[deviceId];
@@ -116,16 +111,15 @@ function makeDivsForDevices(structuredData) {
     });
 }
 
-
 function updateEnergyAndTime(deviceId, energy) {
     let elementEnergy = document.getElementById(`energy_${deviceId}`);
     let elementTimestamp = document.getElementById(`timestamp_${deviceId}`);
     // sort energy by timestamp
     energy.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
     // energy is a timeseries list. Get the value with latest timestamp
-    let energyNum = energy[energy.length -1].value;
+    let energyNum = energy[energy.length - 1].value;
     updateEnergyTooltip(deviceId, "" + energyNum + " %");
-    let timestamp = energy[energy.length -1].timestamp;
+    let timestamp = energy[energy.length - 1].timestamp;
     // dont replace the latest timestamp if timestamp is lower than the latest
     if (timestamp > latestTimestampPlotted || latestTimestampPlotted == null) {
         latestTimestampPlotted = timestamp;
@@ -134,6 +128,8 @@ function updateEnergyAndTime(deviceId, energy) {
         elementEnergy.style.height = `${energyNum}%`;
     } else {
         console.error(`Element not found: energy_${deviceId}`);
+    }
+}
     }
     if (elementTimestamp) {
         const date = new Date(timestamp);
