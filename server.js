@@ -103,7 +103,16 @@ app.post('/api/data', async (req, res) => {
   
   // Insert data into the database
   const insertQuery = 'INSERT INTO xiaomi_data (data_id, device_id, device_name, timestamp, firmware, energy, temperature, humidity, brightness, conductivity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
-  await client.query(insertQuery, [data_id, req.body.device_id, req.body.device_name, req.body.timestamp, req.body.firmware, req.body.data.energy, req.body.data.temperature, req.body.data.humidity, req.body.data.brightness, req.body.data.conductivity]);
+  let res = await client.query(insertQuery, [data_id, req.body.device_id, req.body.device_name, req.body.timestamp, req.body.firmware, req.body.data.energy, req.body.data.temperature, req.body.data.humidity, req.body.data.brightness, req.body.data.conductivity]);
+
+  // return if error
+  if (res.error) {
+    console.error(res.error);
+    res.status(500).json({
+      message: res.error
+    });
+    return;
+  }
 
   // return success message and status code 200 OK
   res.status(200).json({
