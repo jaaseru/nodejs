@@ -1,5 +1,3 @@
-const apiUrl = `${apiUrl}`;
-const pollingInterval = parseInt(`${pollingInterval}`);
 
 let structuredData = {};
 let latestTimestampPlotted = null;
