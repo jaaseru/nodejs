@@ -305,14 +305,15 @@ function getLatestData() {
                 let deviceId = dataPoint.device_id;
                 if (!structuredData[deviceId]) {
                     structuredData[deviceId] = {
-                    device_name: dataPoint.device_name,
-                    device_id: dataPoint.device_id,
-                    firmware: dataPoint.firmware,
-                    energy: [],
-                    temperature: [],
-                    humidity: [],
-                    brightness: [],
-                    conductivity: []
+                        device_name: dataPoint.device_name,
+                        device_id: dataPoint.device_id,
+                        firmware: dataPoint.firmware,
+                        energy: [],
+                        temperature: [],
+                        humidity: [],
+                        brightness: [],
+                        conductivity: []
+                    };
                 };
                 structuredData[deviceId].energy.push({ timestamp: dataPoint.timestamp, value: dataPoint.energy });
                 structuredData[deviceId].temperature.push({ timestamp: dataPoint.timestamp, value: dataPoint.temperature /10 });
