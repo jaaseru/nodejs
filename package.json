@@ -1,13 +1,16 @@
 {
-  "name": "nodejs-app",
-  "version": "1.0.0",
-  "description": "A minimal Node.js web application.",
-  "main": "index.js",
-  "author": "alphasec",
-  "license": "MIT",
-   "dependencies": {
-  },
-  "scripts": {
-    "start": "node index.js"
-  }
+    "name": "my-app",
+    "version": "1.0.0",
+    "description": "My app",
+    "main": "server.js",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "helmet": "^7.1.0",
+        "pg": "^8.11.3",
+        "plotly.js-dist": "^2.27.1"
+    },
+    "scripts": {
+        "start": "node server.js"
+    }
 }
