@@ -291,7 +291,7 @@ function getLatestData() {
     } else {
         return
     }
-    console.log('Getting data after timestamp: ' + latestTimestamp);
+
     let request = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -300,9 +300,20 @@ function getLatestData() {
     fetch(apiUrl + '/api/data_timeseries_update', request)
         .then(response => response.json())
         .then(rawData => {
-            console.log(rawData);
+            // console.log(rawData);
             rawData.forEach(dataPoint => {
                 let deviceId = dataPoint.device_id;
+                if (!structuredData[deviceId]) {
+                    structuredData[deviceId] = {
+                    device_name: dataPoint.device_name,
+                    device_id: dataPoint.device_id,
+                    firmware: dataPoint.firmware,
+                    energy: [],
+                    temperature: [],
+                    humidity: [],
+                    brightness: [],
+                    conductivity: []
+                };
                 structuredData[deviceId].energy.push({ timestamp: dataPoint.timestamp, value: dataPoint.energy });
                 structuredData[deviceId].temperature.push({ timestamp: dataPoint.timestamp, value: dataPoint.temperature /10 });
                 structuredData[deviceId].humidity.push({ timestamp: dataPoint.timestamp, value: dataPoint.humidity });
