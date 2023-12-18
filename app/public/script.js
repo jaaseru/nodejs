@@ -249,7 +249,7 @@ function updateMetricPlot(elementId, data, title) {
 
 
 function getData() {
-    fetch(process.env.API_URL + '/api/data_timeseries')
+    fetch(apiUrl + '/api/data_timeseries')
         .then(response => response.json())
         .then(rawData => {
             
@@ -317,4 +317,4 @@ function getLatestData() {
 
 
 getData();
-setInterval(getLatestData, process.env.WEB_UPDATE_INTERVAL*1000);
+setInterval(getLatestData, pollingInterval*1000);
