@@ -147,12 +147,12 @@ app.post('/api/data', async (req, res) => {
 });
 
 
-app.get('/api/data', (req, res) => {
-  res.status(200).json({
-    message: 'Data received successfully',
-    data: data
-  });
-});
+// app.get('/api/data', (req, res) => {
+//   res.status(200).json({
+//     message: 'Data received successfully',
+//     data: data
+//   });
+// });
 
 
 app.get('/api/data_timeseries', async (req, res) => {
