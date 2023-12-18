@@ -113,11 +113,11 @@ app.post('/api/data', async (req, res) => {
   // Remove the oldest data if the total number of rows is more than 2000
   await removeOldestData();
 
-  let data_id = randomUUID();
+  let uuid = randomUUID();
   
   // Insert data into the database
-  const insertQuery = 'INSERT INTO xiaomi_data (data_id, device_id, device_name, timestamp, firmware, energy, temperature, humidity, brightness, conductivity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
-  let err = await client.query(insertQuery, [data_id, req.body.device_id, req.body.device_name, req.body.timestamp, req.body.firmware, req.body.data.energy, req.body.data.temperature, req.body.data.humidity, req.body.data.brightness, req.body.data.conductivity]);
+  const insertQuery = 'INSERT INTO xiaomi_data (uuid, device_id, device_name, timestamp, firmware, energy, temperature, humidity, brightness, conductivity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+  let err = await client.query(insertQuery, [uuid, req.body.device_id, req.body.device_name, req.body.timestamp, req.body.firmware, req.body.data.energy, req.body.data.temperature, req.body.data.humidity, req.body.data.brightness, req.body.data.conductivity]);
 
   // return if error
   if (err.error) {
