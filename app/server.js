@@ -108,7 +108,7 @@ async function removeOldestData() {
 
 app.post('/api/data', async (req, res) => {
   // Get the device ID from the request body
-  console.log(req.body);
+  console.log("Body:\n", req.body);
 
   // Remove the oldest data if the total number of rows is more than 2000
   await removeOldestData();
