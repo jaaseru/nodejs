@@ -50,9 +50,10 @@ function initPage() {
             getDataButton.textContent = 'Get Data';
             getDataButton.addEventListener('click', () => {
                 let selectedDevice = dropdown.value;
+                let selectedName = structuredDevices[selectedDevice].device_name;
                 let selectedInterval = document.querySelector('#intervalButtonGroup .active')?.value;
                 structuredDevices[selectedDevice].selected = true;
-                getData(selectedDevice, selectedInterval, dropdown.text);
+                getData(selectedDevice, selectedInterval, selectedName);
             });
 
             // Append elements to the header
@@ -163,6 +164,19 @@ function updateDeviceUI(deviceData, deviceNumber, name) {
     document.getElementById(`device_name_${deviceNumber}`).textContent = name;
     document.getElementById(`device_id_${deviceNumber}`).textContent = deviceData.device_id;
     // document.getElementById(`firmware_${deviceNumber}`).textContent = deviceData.firmware;
+    //make "remove device" button
+    let removeButton = document.createElement('button');
+    removeButton.textContent = 'X';
+    removeButton.addEventListener('click', () => {
+        container.remove();
+        structuredDevices[deviceData.device_id].selected = false;
+        structuredData.remove(deviceData.device_id);
+    });
+    // place it in the top right corner
+    removeButton.style.position = 'absolute';
+    removeButton.style.top = '0';
+    removeButton.style.right = '0';
+    container.appendChild(removeButton);
 }
 
 function updateEnergyTooltip(deviceNumber, energyLevel) {
