@@ -35,8 +35,8 @@ body {
     margin: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
 }
 
 .remove-button {
@@ -56,6 +56,7 @@ body {
 }
 
 .remove-button_div {
+    /* Place top right in parent div */
     position: absolute;
     top: 0;
     right: 0;
