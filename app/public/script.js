@@ -10,6 +10,7 @@ function initPage() {
     header.id = 'header';
 
     // Create a dropdown menu for selecting devices
+    let dropdownGroup = document.createElement('div');
     let dropdown = document.createElement('select');
     dropdown.id = 'deviceDropdown';
 
@@ -55,8 +56,9 @@ function initPage() {
             });
 
             // Append elements to the header
-            header.appendChild(dropdown);
-            header.appendChild(getDataButton); // Add the button here
+            dropdownGroup.appendChild(dropdown);
+            dropdownGroup.appendChild(getDataButton); // Add the button here
+            header.appendChild(dropdownGroup);
             header.appendChild(intervalButtons);
             body.appendChild(header);
         })
