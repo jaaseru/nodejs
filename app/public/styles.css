@@ -25,8 +25,8 @@ body {
     position: fixed;
     top: 0;
     padding: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .container {
@@ -42,7 +42,7 @@ body {
 }
 
 .remove-button {
-    position: relative;
+    position: inherit;
     top: 0;
     right: 0;
     background-color: lightgray;
