@@ -50,10 +50,9 @@ function initPage() {
             getDataButton.textContent = 'Get Data';
             getDataButton.addEventListener('click', () => {
                 let selectedDevice = dropdown.value;
-                let selectedName = structuredDevices[selectedDevice].device_name;
                 let selectedInterval = document.querySelector('#intervalButtonGroup .active')?.value;
                 structuredDevices[selectedDevice].selected = true;
-                getData(selectedDevice, selectedInterval, selectedName);
+                getData(selectedDevice, selectedInterval);
             });
 
             // Append elements to the header
@@ -149,7 +148,7 @@ function createDeviceHTML(deviceNumber) {
     `;
 }
 
-function updateDeviceUI(deviceData, deviceNumber, name) {
+function updateDeviceUI(device, deviceData, deviceNumber) {
     let container = document.getElementById(`container_${deviceNumber}`);
     if (!container) {
         // Create a new container if it doesn't exist
@@ -161,8 +160,8 @@ function updateDeviceUI(deviceData, deviceNumber, name) {
         container.innerHTML = createDeviceHTML(deviceNumber);
     }
     // Update name, mac and firmware
-    document.getElementById(`device_name_${deviceNumber}`).textContent = name;
-    document.getElementById(`device_id_${deviceNumber}`).textContent = deviceData.device_id;
+    document.getElementById(`device_name_${deviceNumber}`).textContent = device.device_name;
+    document.getElementById(`device_id_${deviceNumber}`).textContent = device.device_mac;
     // document.getElementById(`firmware_${deviceNumber}`).textContent = deviceData.firmware;
     // Create a button for removing the device
     let removeButton = document.createElement('button');
@@ -170,8 +169,8 @@ function updateDeviceUI(deviceData, deviceNumber, name) {
     removeButton.textContent = 'X';
     removeButton.addEventListener('click', () => {
         container.remove();
-        structuredDevices[deviceData.device_id].selected = false;
-        structuredData.remove(deviceData.device_id);
+        structuredDevices[device.device_mac].selected = false;
+        structuredData.remove(device.device_mac);
     });
     container.appendChild(removeButton);
 }
@@ -192,10 +191,11 @@ function updateEnergyTooltip(deviceNumber, energyLevel) {
     energyElement.appendChild(tooltip);
 }
 
-function makeDivsForDevices(structuredData, name) {
+function makeDivsForDevices(structuredData) {
     Object.keys(structuredData).forEach(deviceId => {
         const deviceData = structuredData[deviceId];
-        updateDeviceUI(deviceData, deviceId, name);
+        const device = structuredDevices[deviceId];
+        updateDeviceUI(device, deviceData, deviceId);
     });
 }
 
@@ -335,7 +335,7 @@ function updateMetricPlot(elementId, data, title) {
 }
 
 
-function getData(device_id, interval, name) {
+function getData(device_id, interval) {
     // Replace apiUrl with your actual API base URL
     console.log('Fetching data for device', device_id, 'with interval', interval);
     fetch(apiUrl + `/api/data_timeseries/${device_id}/${interval}`)
@@ -362,7 +362,7 @@ function getData(device_id, interval, name) {
             });
 
             console.log(structuredData);
-            makeDivsForDevices(structuredData, name);
+            makeDivsForDevices(structuredData);
             updateTimeseriesUI(structuredData);
         })
         .catch(error => console.error('Error fetching data:', error));
