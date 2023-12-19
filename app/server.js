@@ -4,7 +4,6 @@ const cors = require('cors');
 const { Client } = require('pg');
 const helmet = require('helmet');
 const dotenv = require('dotenv');
-const { randomUUID } = require('crypto');
 
 dotenv.config();
 
@@ -19,25 +18,23 @@ const client = new Client({
   }
 });
 
-// Connect to the database
+
 client.connect().then(() => {
   console.log('Connected to the Database');
 }).catch(e => {
   console.error('Failed to connect to the Database', e);
 });
 
-// Middleware setup
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(helmet.contentSecurityPolicy({
-//   directives: {
-//     defaultSrc: ["'self'"],
-//     // It's best to avoid 'unsafe-inline' but may be necessary for specific scripts
-//     scriptSrc: ["'self'", "'unsafe-inline'"],
-//     // Add more directives as necessary
-//   }
-// }));
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "'unsafe-inline'"],
+  }
+}));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
