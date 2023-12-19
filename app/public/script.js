@@ -157,22 +157,21 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
         container.className = 'container';
         document.body.appendChild(container);
         // Populate the container with HTML structure
+        let removeButton = document.createElement('button');
+        removeButton.className = 'remove-button';
+        removeButton.textContent = 'X';
+        removeButton.addEventListener('click', () => {
+            container.remove();
+            structuredDevices[device.device_mac].selected = false;
+            structuredData.pop(device.device_mac);
+        });
         container.innerHTML = createDeviceHTML(deviceNumber);
+        container.appendChild(removeButton);
     }
     // Update name, mac and firmware
     document.getElementById(`device_name_${deviceNumber}`).textContent = device.device_name;
     document.getElementById(`device_id_${deviceNumber}`).textContent = device.device_mac;
-    // document.getElementById(`firmware_${deviceNumber}`).textContent = deviceData.firmware;
-    // Create a button for removing the device
-    let removeButton = document.createElement('button');
-    removeButton.className = 'remove-button';
-    removeButton.textContent = 'X';
-    removeButton.addEventListener('click', () => {
-        container.remove();
-        structuredDevices[device.device_mac].selected = false;
-        structuredData.remove(device.device_mac);
-    });
-    container.appendChild(removeButton);
+    // document.getElementById(`firmware_${deviceNumber}`).textContent = deviceData.firmware;    
 }
 
 function updateEnergyTooltip(deviceNumber, energyLevel) {
