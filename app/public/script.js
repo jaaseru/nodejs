@@ -286,11 +286,11 @@ function updateTimeseriesUI(device_id, structuredData) {
     }
     
     // Update UI for each metric
-    updateEnergyAndTime(deviceId, deviceData.energy);
-    updateMetricPlot(`temperature-${deviceId}`, deviceData.temperature, 'Temperature (°C)');
-    updateMetricPlot(`humidity-${deviceId}`, deviceData.humidity, 'Humidity (%)');
-    updateMetricPlot(`brightness-${deviceId}`, deviceData.brightness, 'Brightness (lux)');
-    updateMetricPlot(`conductivity-${deviceId}`, deviceData.conductivity, 'Conductivity (µS/cm)');
+    updateEnergyAndTime(device_id, deviceData.energy);
+    updateMetricPlot(`temperature-${device_id}`, deviceData.temperature, 'Temperature (°C)');
+    updateMetricPlot(`humidity-${device_id}`, deviceData.humidity, 'Humidity (%)');
+    updateMetricPlot(`brightness-${device_id}`, deviceData.brightness, 'Brightness (lux)');
+    updateMetricPlot(`conductivity-${device_id}`, deviceData.conductivity, 'Conductivity (µS/cm)');
     
 }
 
