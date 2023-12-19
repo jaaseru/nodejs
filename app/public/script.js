@@ -1,56 +1,67 @@
 
 let structuredData = {};
+let structuredDevices = {};
 let latestTimestampPlotted = null;
 
 
 function initPage() {
-    // Create a dropdown menu for selecting devices to display
     let body = document.getElementsByTagName('body')[0];
-    let dropdown = document.createElement('select');
-    let intervalSelector = document.createElement('select');
-    let option6h = document.createElement('option');
-    let option12h = document.createElement('option');
-    let option24h = document.createElement('option');
-    let option1w = document.createElement('option');
 
-    option6h.value = '6h';
-    option6h.text = '6 hours';
-    option12h.value = '12h';
-    option12h.text = '12 hours';
-    option24h.value = '24h';
-    option24h.text = '24 hours';
-    option1w.value = '1w';
-    option1w.text = '1 week';
+    // Create a dropdown menu for selecting devices
+    let dropdown = document.createElement('select');
+    dropdown.id = 'deviceDropdown';
+
+    // Create a button group for interval selection
+    let intervalButtons = document.createElement('div');
+    intervalButtons.id = 'intervalButtonGroup';
+
+    ['6h', '12h', '24h', '1w'].forEach(interval => {
+        let button = document.createElement('button');
+        button.textContent = interval === '1w' ? '1 week' : interval + ' hours';
+        button.value = interval;
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            document.querySelectorAll('#intervalButtonGroup button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Add active class to the clicked button
+            this.classList.add('active');
+        });
+        intervalButtons.appendChild(button);
+    });
 
     // Fetch data from the API endpoint
     fetch('/api/devices')
         .then(response => response.json())
         .then(data => {
-            // Populate the dropdown with device options
             data.forEach(device => {
+                structuredDevices[device.device_id] = device;
+                console.log(structuredDevices);
                 let option = document.createElement('option');
                 option.value = device.device_id;
                 option.text = device.device_name;
                 dropdown.appendChild(option);
-
-                // Create a "Get data" button for each device
-                let button = document.createElement('button');
-                button.textContent = 'Get data';
-                button.addEventListener('click', () => {
-                    getData(device.device_id, intervalSelector.value);
-                });
-
-                // Append the button to the dropdown
-                dropdown.appendChild(button);
             });
 
-            // Append the dropdown to the body
+            // Create a button for fetching data
+            let button = document.createElement('button');
+            button.textContent = 'Get data';
+            button.addEventListener('click', () => {
+                let selectedDevice = document.getElementById('deviceDropdown').value;
+                let selectedInterval = document.querySelector('#intervalButtonGroup .active')?.value;
+                getData(selectedDevice, selectedInterval);
+            });
+
+            // Append elements to the body
             body.appendChild(dropdown);
+            body.appendChild(intervalButtons);
+            body.appendChild(button);
         })
         .catch(error => {
             console.error('Failed to fetch devices:', error);
         });
 }
+
 
 
 function createDeviceHTML(deviceNumber) {
