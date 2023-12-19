@@ -31,11 +31,11 @@ function initPage() {
         intervalButtons.appendChild(button);
     });
     // make tooltip for interval buttons
-    tippy('#intervalButtonGroup', {
-        content: 'Time range from Last data',
-        placement: 'left',
-        arrow: true
-    });
+    let tooltip = document.createElement('span');
+    tooltip.className = 'tooltiptext';
+    tooltip.textContent = 'Time range from Last data';
+    intervalButtons.appendChild(tooltip);
+
     // set first button as active
     intervalButtons.querySelector('button').classList.add('active');
 
