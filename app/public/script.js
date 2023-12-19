@@ -53,6 +53,10 @@ function initPage() {
                 let selectedInterval = document.querySelector('#intervalButtonGroup .active')?.value;
                 structuredDevices[selectedDevice].selected = true;
                 getData(selectedDevice, selectedInterval);
+                // remove the device from the dropdown list
+                let dropdown = document.getElementById('deviceDropdown');
+                let option = dropdown.querySelector(`option[value="${selectedDevice}"]`);
+                option.remove();
             });
 
             // Append elements to the header
@@ -166,6 +170,11 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
             container.remove();
             structuredDevices[device.device_mac].selected = false;
             delete structuredData[device.device_mac];
+            let dropdown = document.getElementById('deviceDropdown');
+            let option = document.createElement('option');
+            option.value = device.device_mac;
+            option.text = device.device_name;
+            dropdown.appendChild(option);
         });
 
         let editNameButton = document.createElement('button');
