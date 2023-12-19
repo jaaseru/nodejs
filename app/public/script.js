@@ -1,4 +1,6 @@
 
+
+
 let structuredData = {};
 let structuredDevices = {};
 
@@ -28,9 +30,12 @@ function initPage() {
         });
         intervalButtons.appendChild(button);
     });
-    let p = document.createElement('div');
-    p.textContent = 'Range from Last data';
-    intervalButtons.appendChild(p);
+    // make tooltip for interval buttons
+    tippy('#intervalButtonGroup button', {
+        content: 'Time range from Last data',
+        placement: 'bottom',
+        arrow: true
+    });
     // set first button as active
     intervalButtons.querySelector('button').classList.add('active');
 
