@@ -6,6 +6,8 @@ let latestTimestampPlotted = null;
 
 function initPage() {
     let body = document.getElementsByTagName('body')[0];
+    let header = document.createElement('div');
+    header.id = 'header';
 
     // Create a dropdown menu for selecting devices
     let dropdown = document.createElement('select');
@@ -56,10 +58,11 @@ function initPage() {
 
             
 
-            // Append elements to the body
-            body.appendChild(dropdown);
-            body.appendChild(intervalButtons);
-            body.appendChild(button);
+            // Append elements to the header
+            header.appendChild(dropdown);
+            header.appendChild(intervalButtons);
+            header.appendChild(button);
+            body.appendChild(header);
         })
         .catch(error => {
             console.error('Failed to fetch devices:', error);
