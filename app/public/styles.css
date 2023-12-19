@@ -60,8 +60,8 @@ body {
     position: absolute;
     top: -50px;
     left: 380px;
-    width: 0;
-    height: 0;
+    max-width: 0;
+    max-height: 0;
     overflow: visible;
 }
 
