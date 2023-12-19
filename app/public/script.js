@@ -2,6 +2,57 @@
 let structuredData = {};
 let latestTimestampPlotted = null;
 
+
+function initPage() {
+    // Create a dropdown menu for selecting devices to display
+    let body = document.getElementsByTagName('body')[0];
+    let dropdown = document.createElement('select');
+    let intervalSelector = document.createElement('select');
+    let option6h = document.createElement('option');
+    let option12h = document.createElement('option');
+    let option24h = document.createElement('option');
+    let option1w = document.createElement('option');
+
+    option6h.value = '6h';
+    option6h.text = '6 hours';
+    option12h.value = '12h';
+    option12h.text = '12 hours';
+    option24h.value = '24h';
+    option24h.text = '24 hours';
+    option1w.value = '1w';
+    option1w.text = '1 week';
+
+    // Fetch data from the API endpoint
+    fetch('/api/devices')
+        .then(response => response.json())
+        .then(data => {
+            // Populate the dropdown with device options
+            data.forEach(device => {
+                let option = document.createElement('option');
+                option.value = device.device_id;
+                option.text = device.device_name;
+                dropdown.appendChild(option);
+
+                // Create a "Get data" button for each device
+                let button = document.createElement('button');
+                button.textContent = 'Get data';
+                button.addEventListener('click', () => {
+                    getData(device.device_id, intervalSelector.value);
+                });
+
+                // Append the button to the dropdown
+                dropdown.appendChild(button);
+            });
+
+            // Append the dropdown to the body
+            body.appendChild(dropdown);
+        })
+        .catch(error => {
+            console.error('Failed to fetch devices:', error);
+        });
+}
+
+
 function createDeviceHTML(deviceNumber) {
     return `
         <h1 id="device_name_${deviceNumber}">Plantepinne</h1>
@@ -245,35 +296,29 @@ function updateMetricPlot(elementId, data, title) {
 }
 
 
-
-
-
-function getData() {
-    fetch(apiUrl + '/api/data_timeseries')
+function getData(device_id, interval) {
+    // Replace apiUrl with your actual API base URL
+    fetch(apiUrl + `/api/data_timeseries/${device_id}/${interval}`)
         .then(response => response.json())
         .then(rawData => {
-            
             rawData.forEach(dataPoint => {
                 let deviceId = dataPoint.device_id;
 
                 if (!structuredData[deviceId]) {
                     structuredData[deviceId] = {
-                    device_name: dataPoint.device_name,
-                    device_id: dataPoint.device_id,
-                    firmware: dataPoint.firmware,
-                    energy: [],
-                    temperature: [],
-                    humidity: [],
-                    brightness: [],
-                    conductivity: []
-                };
-            }
+                        energy: [],
+                        temperature: [],
+                        humidity: [],
+                        brightness: [],
+                        conductivity: []
+                    };
+                }
 
-            structuredData[deviceId].energy.push({ timestamp: dataPoint.timestamp, value: dataPoint.energy });
-            structuredData[deviceId].temperature.push({ timestamp: dataPoint.timestamp, value: dataPoint.temperature /10 });
-            structuredData[deviceId].humidity.push({ timestamp: dataPoint.timestamp, value: dataPoint.humidity });
-            structuredData[deviceId].brightness.push({ timestamp: dataPoint.timestamp, value: dataPoint.brightness });
-            structuredData[deviceId].conductivity.push({ timestamp: dataPoint.timestamp, value: dataPoint.conductivity });
+                structuredData[deviceId].energy.push({ timestamp: dataPoint.timestamp, value: dataPoint.energy });
+                structuredData[deviceId].temperature.push({ timestamp: dataPoint.timestamp, value: dataPoint.temperature / 10 });
+                structuredData[deviceId].humidity.push({ timestamp: dataPoint.timestamp, value: dataPoint.humidity });
+                structuredData[deviceId].brightness.push({ timestamp: dataPoint.timestamp, value: dataPoint.brightness });
+                structuredData[deviceId].conductivity.push({ timestamp: dataPoint.timestamp, value: dataPoint.conductivity });
             });
 
             console.log(structuredData);
@@ -282,6 +327,7 @@ function getData() {
         })
         .catch(error => console.error('Error fetching data:', error));
 }
+
 
 
 function getLatestData() {
@@ -327,6 +373,6 @@ function getLatestData() {
 }
 
 
-
-getData();
-setInterval(getLatestData, pollingInterval*1000);
+initPage();
+// getData();
+// setInterval(getLatestData, pollingInterval*1000);
