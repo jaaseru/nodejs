@@ -155,18 +155,18 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
         container = document.createElement('div');
         container.id = `container_${deviceNumber}`;
         container.className = 'container';
-        document.body.appendChild(container);
-        // Populate the container with HTML structure
+        
         let removeButton = document.createElement('button');
         removeButton.className = 'remove-button';
         removeButton.textContent = 'X';
         removeButton.addEventListener('click', () => {
             container.remove();
             structuredDevices[device.device_mac].selected = false;
-            structuredData.pop(device.device_mac);
+            delete structuredData[device.device_mac];
         });
         container.innerHTML = createDeviceHTML(deviceNumber);
         container.appendChild(removeButton);
+        document.body.appendChild(container);
     }
     // Update name, mac and firmware
     document.getElementById(`device_name_${deviceNumber}`).textContent = device.device_name;
