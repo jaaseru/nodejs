@@ -24,7 +24,9 @@ body {
     align-items: center;
     position: fixed;
     top: 0;
-    padding: 10px 20px;
+    padding: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .container {

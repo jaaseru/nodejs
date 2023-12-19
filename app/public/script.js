@@ -207,11 +207,7 @@ function updateEnergyAndTime(deviceId, energy) {
     let energyNum = energy[energy.length - 1].value;
     updateEnergyTooltip(deviceId, "" + energyNum + " %");
     let timestamp = energy[energy.length - 1].timestamp;
-    // dont replace the latest timestamp if timestamp is lower than the latest
-    // let latest = structuredDevices[deviceId].latestTimestampPlotted;
-    // if (timestamp > latest || latest == null) {
-    //     latest = timestamp;
-    // }
+
     if (elementEnergy) {
         elementEnergy.style.height = `${energyNum}%`;
     } else {
