@@ -194,26 +194,27 @@ row {
     position: absolute;
     z-index: 1;
     opacity: 0;
+    left: 50%;
+    transform: translateX(-50%);
     transition: opacity 0.3s;
 }
-
 
 /* Show the tooltip when hovering */
 #intervalButtonGroup:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-  }
-  
-  /* Tooltip arrow */
+}
+
+/* Tooltip arrow */
 .tooltiptext::after {
     content: "";
     position: absolute;
-    top: 100%;
+    top: -10px;
     left: 50%;
-    margin-left: -5px;
+    transform: translateX(-50%);
     border-width: 5px;
     border-style: solid;
-    border-color: black transparent transparent transparent;
+    border-color: transparent transparent black transparent;
 }
 
 column {
