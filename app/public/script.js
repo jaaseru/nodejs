@@ -85,7 +85,7 @@ function createDeviceHTML(deviceNumber) {
         <h1 id="device_name_${deviceNumber}">Plantepinne</h1>
         <h2 id="device_id_${deviceNumber}"></h2>
         <h3 id="firmware_${deviceNumber}"></h3>
-                    
+        <div class="remove-button-div">         
         <row>
             <column>
                 <div class="energy-container">
@@ -165,7 +165,8 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
             delete structuredData[device.device_mac];
         });
         container.innerHTML = createDeviceHTML(deviceNumber);
-        container.appendChild(removeButton);
+        let buttonDiv = container.querySelector('#remove-button-div');
+        buttonDiv.appendChild(removeButton);
         document.body.appendChild(container);
     }
     // Update name, mac and firmware

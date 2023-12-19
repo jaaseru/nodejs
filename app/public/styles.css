@@ -41,8 +41,6 @@ body {
 
 .remove-button {
     position: relative;
-    top: -350px;
-    right: 0;
     background-color: lightgray;
     color: white;
     border: none;
@@ -51,6 +49,16 @@ body {
     width: 30px;
     height: 30px;
     cursor: pointer;
+}
+
+.remove-button:hover {
+    background-color: #b44747;
+}
+
+.remove-button_div {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 h1 {
