@@ -195,7 +195,6 @@ row {
     z-index: 1;
     opacity: 0;
     left: 50%;
-    transform: translateX(-50%);
     transition: opacity 0.3s;
 }
 
@@ -211,7 +210,6 @@ row {
     position: absolute;
     top: -10px;
     left: 50%;
-    transform: translateX(-50%);
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent black transparent;
