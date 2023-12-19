@@ -39,7 +39,7 @@ body {
     flex-direction: column;
 }
 
-.remove-button-div {
+.remove-button {
     position: relative;
     background-color: lightgray;
     color: white;
@@ -55,7 +55,7 @@ body {
     background-color: #b44747;
 }
 
-.remove-button_div {
+.remove-button-div {
     /* Place top right in parent div */
     position: absolute;
     top: -50px;
