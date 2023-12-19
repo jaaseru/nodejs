@@ -163,20 +163,6 @@ row {
   transition: opacity 0.3s;
 }
 
-.tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
 /* Show the tooltip when hovering */
 .energy-container:hover .energy-tooltip {
   visibility: visible;
@@ -193,6 +179,41 @@ row {
   border-width: 5px;
   border-style: solid;
   border-color: black transparent transparent transparent;
+}
+
+
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+
+/* Show the tooltip when hovering */
+#intervalButtonGroup:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* Tooltip arrow */
+.tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
 }
 
 column {
