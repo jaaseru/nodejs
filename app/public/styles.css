@@ -208,6 +208,7 @@ row {
     content: "";
     position: absolute;
     top: -10px;
+    left: 50%;
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent black transparent;
