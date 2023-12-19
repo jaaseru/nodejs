@@ -57,9 +57,9 @@ body {
 
 .remove-button-div {
     /* Place top right in parent div */
-    position: absolute;
-    top: -50px;
-    left: 380px;
+    position: relative;
+    top: 0;
+    right: 0;
     max-width: 0;
     max-height: 0;
     overflow: visible;
