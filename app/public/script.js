@@ -82,7 +82,8 @@ function refreshDataForAllDevices(interval) {
 
 function createDeviceHTML(deviceNumber) {
     return `
-        <div class="remove-button-div"></div>      
+        <div class="remove-button-div"></div>
+        <div class="edit-name-div"></div>
         <h1 id="device_name_${deviceNumber}">Plantepinne</h1>
         <h2 id="device_id_${deviceNumber}"></h2>
         <h3 id="firmware_${deviceNumber}"></h3>

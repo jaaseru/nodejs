@@ -59,10 +59,22 @@ body {
     /* Place top right in parent div */
     position: absolute;
     top: 0;
+    left: 0;
+    max-width: 0;
+    max-height: 0;
+    overflow: visible;
+}
+
+.edit-name-div {
+    position: absolute;
+    top: 0;
     right: 0;
     max-width: 0;
     max-height: 0;
     overflow: visible;
+    content: "\22EE";
+    font-size: 20px;
+    color: #333;
 }
 
 h1 {
