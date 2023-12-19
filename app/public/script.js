@@ -82,9 +82,11 @@ function refreshDataForAllDevices(interval) {
 
 function createDeviceHTML(deviceNumber) {
     return `
-        <div class="remove-button-div"></div>
-        <div class="edit-name-div"></div>
-        <h1 id="device_name_${deviceNumber}">Plantepinne</h1>
+        <row>
+            <div class="remove-button-div"></div>
+            <h1 id="device_name_${deviceNumber}">Plantepinne</h1>
+            <div class="edit-name-div"></div>
+        </row>
         <h2 id="device_id_${deviceNumber}"></h2>
         <h3 id="firmware_${deviceNumber}"></h3>
         <row>
@@ -165,9 +167,35 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
             structuredDevices[device.device_mac].selected = false;
             delete structuredData[device.device_mac];
         });
+
+        let editNameButton = document.createElement('button');
+        editNameButton.className = 'edit-name-button';
+        editNameButton.textContent = 'Edit';
+        editNameButton.addEventListener('click', () => {
+            let newName = prompt('Enter new name');
+            if (newName) {
+                device.device_name = newName;
+                document.getElementById(`device_name_${deviceNumber}`).textContent = newName;
+                fetch(apiUrl + `/api/devices/${device.device_mac}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ device_name: newName, firmware: device.firmware })
+                })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+
         container.innerHTML = createDeviceHTML(deviceNumber);
         let buttonDiv = container.querySelector('.remove-button-div');
         buttonDiv.appendChild(removeButton);
+
+        let editNameDiv = container.querySelector('.edit-name-div');
+        editNameDiv.appendChild(editNameButton);
+        
         document.body.appendChild(container);
     }
     // Update name, mac and firmware
