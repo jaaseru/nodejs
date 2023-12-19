@@ -420,7 +420,7 @@ function fetchLatestData(deviceId, latestTimestamp) {
                 structuredData[deviceId].brightness.push({ timestamp: dataPoint.timestamp, value: dataPoint.brightness });
                 structuredData[deviceId].conductivity.push({ timestamp: dataPoint.timestamp, value: dataPoint.conductivity });
             });
-            updateTimeseriesUI(device_id, structuredData);
+            updateTimeseriesUI(deviceId, structuredData);
         })
         .catch(error => console.error('Error fetching data:', error));
 }
