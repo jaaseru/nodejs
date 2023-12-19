@@ -170,14 +170,20 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
 
         let editNameButton = document.createElement('button');
         editNameButton.className = 'remove-button';
-        editNameButton.textContent = 'Edit';
+        // add small pencil icon
+        editNameButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
         editNameButton.addEventListener('click', () => {
             let newName = prompt('Enter new name');
             if (newName) {
                 device.device_name = newName;
-                document.getElementById(`device_name_${deviceNumber}`).textContent = newName;
-                changeDeviceName(device, newName);
-                
+                if (changeDeviceName(device, newName)) {
+                    console.log("Name changed");
+                    document.getElementById(`device_name_${deviceNumber}`).textContent = newName;
+                    // update dropdown list
+                    let dropdown = document.getElementById('deviceDropdown');
+                    let option = dropdown.querySelector(`option[value="${device.device_mac}"]`);
+                    option.text = newName;
+                }
             }
         });
 
@@ -451,8 +457,11 @@ function changeDeviceName(device, newName) {
         body: JSON.stringify({ device_name: newName, firmware: device.firmware })
     })
         .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
+        .then(data => {return true})
+        .catch(error => {
+            console.error('Error:', error)
+            return false;    
+        });
 }
 
 
