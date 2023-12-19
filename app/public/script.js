@@ -85,7 +85,7 @@ function createDeviceHTML(deviceNumber) {
         <h1 id="device_name_${deviceNumber}">Plantepinne</h1>
         <h2 id="device_id_${deviceNumber}"></h2>
         <h3 id="firmware_${deviceNumber}"></h3>
-        <div class="remove-button-div">         
+        <div class="remove-button-div"></div>      
         <row>
             <column>
                 <div class="energy-container">
