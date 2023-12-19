@@ -27,6 +27,7 @@ function initPage() {
             refreshDataForAllDevices(this.value);
         });
         intervalButtons.appendChild(button);
+        intervalButtons.appendChild("<p>Range from\nLast data </p>");
     });
     // set first button as active
     intervalButtons.querySelector('button').classList.add('active');
