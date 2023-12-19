@@ -1,7 +1,6 @@
 
 let structuredData = {};
 let structuredDevices = {};
-let latestTimestampPlotted = null;
 
 
 function initPage() {
@@ -347,8 +346,6 @@ function updateMetricPlot(elementId, data, title) {
 
 
 function getData(device_id, interval) {
-    // Replace apiUrl with your actual API base URL
-    console.log('Fetching data for device', device_id, 'with interval', interval);
     fetch(apiUrl + `/api/data_timeseries/${device_id}/${interval}`)
         .then(response => response.json())
         .then(rawData => {
@@ -371,7 +368,7 @@ function getData(device_id, interval) {
                 structuredData[device_id].conductivity.push({ timestamp: dataPoint.timestamp, value: dataPoint.conductivity });
             });
 
-            console.log(structuredData);
+            // console.log(structuredData);
             makeDivsForDevices(structuredData);
             updateTimeseriesUI(device_id, structuredData);
         })
@@ -420,6 +417,7 @@ function fetchLatestData(deviceId, latestTimestamp) {
                 structuredData[deviceId].brightness.push({ timestamp: dataPoint.timestamp, value: dataPoint.brightness });
                 structuredData[deviceId].conductivity.push({ timestamp: dataPoint.timestamp, value: dataPoint.conductivity });
             });
+            console.log("updating");
             updateTimeseriesUI(deviceId, structuredData);
         })
         .catch(error => console.error('Error fetching data:', error));
