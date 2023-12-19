@@ -28,6 +28,8 @@ function initPage() {
         });
         intervalButtons.appendChild(button);
     });
+    // set first button as active
+    intervalButtons.querySelector('button').classList.add('active');
 
     // Fetch data from the API endpoint
     fetch('/api/devices')
@@ -51,8 +53,8 @@ function initPage() {
 
             // Append elements to the header
             header.appendChild(dropdown);
-            header.appendChild(intervalButtons);
             header.appendChild(getDataButton); // Add the button here
+            header.appendChild(intervalButtons);
             body.appendChild(header);
         })
         .catch(error => {
