@@ -194,6 +194,7 @@ row {
     position: absolute;
     z-index: 1;
     opacity: 0;
+    transform: translateX(5%);
     transition: opacity 0.3s;
 }
 
