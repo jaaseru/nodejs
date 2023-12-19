@@ -31,9 +31,9 @@ function initPage() {
         intervalButtons.appendChild(button);
     });
     // make tooltip for interval buttons
-    tippy('#intervalButtonGroup button', {
+    tippy('#intervalButtonGroup', {
         content: 'Time range from Last data',
-        placement: 'bottom',
+        placement: 'left',
         arrow: true
     });
     // set first button as active
