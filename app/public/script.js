@@ -209,10 +209,10 @@ function updateEnergyAndTime(deviceId, energy) {
     updateEnergyTooltip(deviceId, "" + energyNum + " %");
     let timestamp = energy[energy.length - 1].timestamp;
     // dont replace the latest timestamp if timestamp is lower than the latest
-    let latest = structuredDevices[deviceId].latestTimestampPlotted;
-    if (timestamp > latest || latest == null) {
-        latest = timestamp;
-    }
+    // let latest = structuredDevices[deviceId].latestTimestampPlotted;
+    // if (timestamp > latest || latest == null) {
+    //     latest = timestamp;
+    // }
     if (elementEnergy) {
         elementEnergy.style.height = `${energyNum}%`;
     } else {
@@ -224,6 +224,7 @@ function updateEnergyAndTime(deviceId, energy) {
         const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false };
         const prettyTimestamp = date.toLocaleDateString('NO', options);
         elementTimestamp.textContent = prettyTimestamp;
+        structuredDevices[deviceId].latestTimestampPlotted = timestamp;
     } else {
         console.error(`Element not found: timestamp_${deviceId}`);
     }
