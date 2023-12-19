@@ -31,7 +31,7 @@ function initPage() {
         intervalButtons.appendChild(button);
     });
     // make tooltip for interval buttons
-    let tooltip = document.createElement('span');
+    let tooltip = document.createElement('div');
     tooltip.className = 'tooltiptext';
     tooltip.textContent = 'Time range from Last data';
     intervalButtons.appendChild(tooltip);
