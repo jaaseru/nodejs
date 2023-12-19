@@ -25,6 +25,10 @@ function initPage() {
             // Remove active class from all buttons
             document.querySelectorAll('#intervalButtonGroup button').forEach(btn => {
                 btn.classList.remove('active');
+                // refresh all data for each device in structuredData
+                Object.keys(structuredData).forEach(deviceId => {
+                    getData(deviceId, this.value);
+                });
             });
             // Add active class to the clicked button
             this.classList.add('active');
@@ -61,7 +65,6 @@ function initPage() {
             // Append elements to the header
             header.appendChild(dropdown);
             header.appendChild(intervalButtons);
-            header.appendChild(button);
             body.appendChild(header);
         })
         .catch(error => {
