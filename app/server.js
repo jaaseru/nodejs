@@ -118,7 +118,7 @@ app.delete('/api/devices/:id', async (req, res) => {
 
 app.put('/api/devices/:id', async (req, res) => {
   try {
-    const updateQuery = 'UPDATE public.xiaomi_devices SET device_name = $1, firmware = $2 WHERE device_id = $3';
+    const updateQuery = 'UPDATE public.xiaomi_devices SET device_name = $1, firmware = $2 WHERE device_mac = $3';
     let err = await client.query(updateQuery, [req.body.device_name, req.body.firmware, req.params.id]);
 
     // return if error
