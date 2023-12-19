@@ -36,6 +36,8 @@ function initPage() {
         .then(response => response.json())
         .then(data => {
             data.forEach(device => {
+                structuredDevices[device.device_mac] = device;
+                structuredDevices[device.device_mac].selected = false;
                 let option = document.createElement('option');
                 option.value = device.device_mac;
                 option.text = device.device_name;
@@ -48,7 +50,8 @@ function initPage() {
             getDataButton.addEventListener('click', () => {
                 let selectedDevice = dropdown.value;
                 let selectedInterval = document.querySelector('#intervalButtonGroup .active')?.value;
-                getData(selectedDevice, selectedInterval);
+                structuredDevices[selectedDevice].selected = true;
+                getData(selectedDevice, selectedInterval, device.device_name);
             });
 
             // Append elements to the header
@@ -64,8 +67,11 @@ function initPage() {
 
 function refreshDataForAllDevices(interval) {
     // Assuming structuredData is a global or previously defined variable
-    Object.keys(structuredData).forEach(deviceId => {
-        getData(deviceId, interval);
+    structuredData = {};
+    Object.keys(structuredDevices).forEach(deviceId => {
+        if (structuredDevices[deviceId].selected) {
+            getData(deviceId, interval);
+        }
     });
 }
 
@@ -140,7 +146,7 @@ function createDeviceHTML(deviceNumber) {
     `;
 }
 
-function updateDeviceUI(deviceData, deviceNumber) {
+function updateDeviceUI(deviceData, deviceNumber, name) {
     let container = document.getElementById(`container_${deviceNumber}`);
     if (!container) {
         // Create a new container if it doesn't exist
@@ -151,7 +157,8 @@ function updateDeviceUI(deviceData, deviceNumber) {
         // Populate the container with HTML structure
         container.innerHTML = createDeviceHTML(deviceNumber);
     }
-    // Update mac and firmware
+    // Update name, mac and firmware
+    document.getElementById(`device_name_${deviceNumber}`).textContent = name;
     document.getElementById(`device_id_${deviceNumber}`).textContent = deviceData.device_id;
     // document.getElementById(`firmware_${deviceNumber}`).textContent = deviceData.firmware;
 }
@@ -172,10 +179,10 @@ function updateEnergyTooltip(deviceNumber, energyLevel) {
     energyElement.appendChild(tooltip);
 }
 
-function makeDivsForDevices(structuredData) {
+function makeDivsForDevices(structuredData, name) {
     Object.keys(structuredData).forEach(deviceId => {
         const deviceData = structuredData[deviceId];
-        updateDeviceUI(deviceData, deviceId);
+        updateDeviceUI(deviceData, deviceId, name);
     });
 }
 
@@ -315,7 +322,7 @@ function updateMetricPlot(elementId, data, title) {
 }
 
 
-function getData(device_id, interval) {
+function getData(device_id, interval, name) {
     // Replace apiUrl with your actual API base URL
     console.log('Fetching data for device', device_id, 'with interval', interval);
     fetch(apiUrl + `/api/data_timeseries/${device_id}/${interval}`)
@@ -342,7 +349,7 @@ function getData(device_id, interval) {
             });
 
             console.log(structuredData);
-            makeDivsForDevices(structuredData);
+            makeDivsForDevices(structuredData, name);
             updateTimeseriesUI(structuredData);
         })
         .catch(error => console.error('Error fetching data:', error));
