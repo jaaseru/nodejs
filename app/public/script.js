@@ -317,6 +317,7 @@ function updateMetricPlot(elementId, data, title) {
 
 function getData(device_id, interval) {
     // Replace apiUrl with your actual API base URL
+    console.log('Fetching data for device', device_id, 'with interval', interval);
     fetch(apiUrl + `/api/data_timeseries/${device_id}/${interval}`)
         .then(response => response.json())
         .then(rawData => {
