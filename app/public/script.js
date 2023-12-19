@@ -17,7 +17,7 @@ function initPage() {
 
     ['6h', '12h', '24h', '1w'].forEach(interval => {
         let button = document.createElement('button');
-        button.textContent = interval === '1w' ? '1 week' : interval + ' hours';
+        button.textContent = interval === '1w' ? '1 week' : interval + '';
         button.value = interval;
         button.addEventListener('click', function() {
             // Remove active class from all buttons
@@ -40,17 +40,21 @@ function initPage() {
                 let option = document.createElement('option');
                 option.value = device.device_id;
                 option.text = device.device_name;
+                
+                // Create a button for fetching data
+                let button = document.createElement('button');
+                button.textContent = 'Get data';
+                button.addEventListener('click', () => {
+                    let selectedDevice = document.getElementById('deviceDropdown').value;
+                    let selectedInterval = document.querySelector('#intervalButtonGroup .active')?.value;
+                    getData(selectedDevice, selectedInterval);
+                });
+
+                option.appendChild(button);
                 dropdown.appendChild(option);
             });
 
-            // Create a button for fetching data
-            let button = document.createElement('button');
-            button.textContent = 'Get data';
-            button.addEventListener('click', () => {
-                let selectedDevice = document.getElementById('deviceDropdown').value;
-                let selectedInterval = document.querySelector('#intervalButtonGroup .active')?.value;
-                getData(selectedDevice, selectedInterval);
-            });
+            
 
             // Append elements to the body
             body.appendChild(dropdown);
