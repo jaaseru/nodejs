@@ -39,6 +39,7 @@ function initPage() {
             data.forEach(device => {
                 structuredDevices[device.device_mac] = device;
                 structuredDevices[device.device_mac].selected = false;
+                structuredDevices[device.device_mac].latestTimestampPlotted = null;
                 let option = document.createElement('option');
                 option.value = device.device_mac;
                 option.text = device.device_name;
@@ -155,7 +156,7 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
         container = document.createElement('div');
         container.id = `container_${deviceNumber}`;
         container.className = 'container';
-        
+
         let removeButton = document.createElement('button');
         removeButton.className = 'remove-button';
         removeButton.textContent = 'X';
@@ -208,8 +209,9 @@ function updateEnergyAndTime(deviceId, energy) {
     updateEnergyTooltip(deviceId, "" + energyNum + " %");
     let timestamp = energy[energy.length - 1].timestamp;
     // dont replace the latest timestamp if timestamp is lower than the latest
-    if (timestamp > latestTimestampPlotted || latestTimestampPlotted == null) {
-        latestTimestampPlotted = timestamp;
+    let latest = structuredDevices[deviceId].latestTimestampPlotted;
+    if (timestamp > latest || latest == null) {
+        latest = timestamp;
     }
     if (elementEnergy) {
         elementEnergy.style.height = `${energyNum}%`;
@@ -228,59 +230,68 @@ function updateEnergyAndTime(deviceId, energy) {
 }
 
 
-function updateTimeseriesUI(structuredData) {
+function updateTimeseriesUI(device_id, structuredData) {
     // remove data more than 24 hours old
+    
+    const deviceData = structuredData[device_id];
+    let timeLimit = document.getElementById('intervalButtonGroup').querySelector('.active').value;
+    let timeLimitNum = 24;
+    if (timeLimit == '1w') {
+        timeLimitNum = 168;
+    } else if (timeLimit == '24h') {
+        timeLimitNum = 24;
+    } else if (timeLimit == '12h') {
+        timeLimitNum = 12;
+    } else if (timeLimit == '6h') {
+        timeLimitNum = 6;
+    }
+    
+    let latestTimestampPlotted = structuredDevices[device_id].latestTimestampPlotted;
     if (latestTimestampPlotted != null) {
-        Object.keys(structuredData).forEach(deviceId => {
-            const deviceData = structuredData[deviceId];
-            deviceData.energy = deviceData.energy.filter(dataPoint => {
-                const date = new Date(dataPoint.timestamp);
-                const head = new Date(latestTimestampPlotted);
-                const diff = head - date;
-                const hours = diff / 1000 / 60 / 60;
-                return hours < 24;
-            });
-            deviceData.temperature = deviceData.temperature.filter(dataPoint => {
-                const date = new Date(dataPoint.timestamp);
-                const head = new Date(latestTimestampPlotted);
-                const diff = head - date;
-                const hours = diff / 1000 / 60 / 60;
-                return hours < 24;
-            });
-            deviceData.humidity = deviceData.humidity.filter(dataPoint => {
-                const date = new Date(dataPoint.timestamp);
-                const head = new Date(latestTimestampPlotted);
-                const diff = head - date;
-                const hours = diff / 1000 / 60 / 60;
-                return hours < 24;
-            });
-            deviceData.brightness = deviceData.brightness.filter(dataPoint => {
-                const date = new Date(dataPoint.timestamp);
-                const head = new Date(latestTimestampPlotted);
-                const diff = head - date;
-                const hours = diff / 1000 / 60 / 60;
-                return hours < 24;
-            });
-            deviceData.conductivity = deviceData.conductivity.filter(dataPoint => {
-                const date = new Date(dataPoint.timestamp);
-                const head = new Date(latestTimestampPlotted);
-                const diff = head - date;
-                const hours = diff / 1000 / 60 / 60;
-                return hours < 24;
-            });
+        deviceData.energy = deviceData.energy.filter(dataPoint => {
+            const date = new Date(dataPoint.timestamp);
+            const head = new Date(latestTimestampPlotted);
+            const diff = head - date;
+            const hours = diff / 1000 / 60 / 60;
+            return hours < timeLimitNum;
+        });
+        deviceData.temperature = deviceData.temperature.filter(dataPoint => {
+            const date = new Date(dataPoint.timestamp);
+            const head = new Date(latestTimestampPlotted);
+            const diff = head - date;
+            const hours = diff / 1000 / 60 / 60;
+            return hours < timeLimitNum;
+        });
+        deviceData.humidity = deviceData.humidity.filter(dataPoint => {
+            const date = new Date(dataPoint.timestamp);
+            const head = new Date(latestTimestampPlotted);
+            const diff = head - date;
+            const hours = diff / 1000 / 60 / 60;
+            return hours < timeLimitNum;
+        });
+        deviceData.brightness = deviceData.brightness.filter(dataPoint => {
+            const date = new Date(dataPoint.timestamp);
+            const head = new Date(latestTimestampPlotted);
+            const diff = head - date;
+            const hours = diff / 1000 / 60 / 60;
+            return hours < timeLimitNum;
+        });
+        deviceData.conductivity = deviceData.conductivity.filter(dataPoint => {
+            const date = new Date(dataPoint.timestamp);
+            const head = new Date(latestTimestampPlotted);
+            const diff = head - date;
+            const hours = diff / 1000 / 60 / 60;
+            return hours < timeLimitNum;
         });
     }
-
-    Object.keys(structuredData).forEach(deviceId => {
-        const deviceData = structuredData[deviceId];
-
-        // Update UI for each metric
-        updateEnergyAndTime(deviceId, deviceData.energy);
-        updateMetricPlot(`temperature-${deviceId}`, deviceData.temperature, 'Temperature (°C)');
-        updateMetricPlot(`humidity-${deviceId}`, deviceData.humidity, 'Humidity (%)');
-        updateMetricPlot(`brightness-${deviceId}`, deviceData.brightness, 'Brightness (lux)');
-        updateMetricPlot(`conductivity-${deviceId}`, deviceData.conductivity, 'Conductivity (µS/cm)');
-    });
+    
+    // Update UI for each metric
+    updateEnergyAndTime(deviceId, deviceData.energy);
+    updateMetricPlot(`temperature-${deviceId}`, deviceData.temperature, 'Temperature (°C)');
+    updateMetricPlot(`humidity-${deviceId}`, deviceData.humidity, 'Humidity (%)');
+    updateMetricPlot(`brightness-${deviceId}`, deviceData.brightness, 'Brightness (lux)');
+    updateMetricPlot(`conductivity-${deviceId}`, deviceData.conductivity, 'Conductivity (µS/cm)');
+    
 }
 
 function updateMetricPlot(elementId, data, title) {
@@ -362,7 +373,7 @@ function getData(device_id, interval) {
 
             console.log(structuredData);
             makeDivsForDevices(structuredData);
-            updateTimeseriesUI(structuredData);
+            updateTimeseriesUI(device_id, structuredData);
         })
         .catch(error => console.error('Error fetching data:', error));
 }
@@ -370,24 +381,27 @@ function getData(device_id, interval) {
 
 
 function getLatestData() {
-    let latestTimestamp = null;
-    if (latestTimestampPlotted != null) {
-        latestTimestamp = latestTimestampPlotted;
-    } else {
-        return
-    }
+    Object.keys(structuredDevices).forEach(deviceId => {
+        if (structuredDevices[deviceId].selected) {
+            let latestTimestamp = structuredDevices[deviceId].latestTimestampPlotted;
+            if (latestTimestamp == null) {
+                return;
+            }
+            fetchLatestData(deviceId, latestTimestamp);
+        }
+    });
+}
 
-    let request = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ latestTimestamp: latestTimestamp })
-    };
-    fetch(apiUrl + '/api/data_timeseries_update', request)
+
+function fetchLatestData(deviceId, latestTimestamp) {
+    // Constructing the URL with path parameters
+    let url = apiUrl + '/api/data_timeseries_update/' + deviceId + '/' + latestTimestamp;
+
+    fetch(url)
         .then(response => response.json())
         .then(rawData => {
-            // console.log(rawData);
+            // Processing rawData as before
             rawData.forEach(dataPoint => {
-                let deviceId = dataPoint.device_id;
                 if (!structuredData[deviceId]) {
                     structuredData[deviceId] = {
                         device_name: dataPoint.device_name,
@@ -399,19 +413,20 @@ function getLatestData() {
                         brightness: [],
                         conductivity: []
                     };
-                };
+                }
                 structuredData[deviceId].energy.push({ timestamp: dataPoint.timestamp, value: dataPoint.energy });
-                structuredData[deviceId].temperature.push({ timestamp: dataPoint.timestamp, value: dataPoint.temperature /10 });
+                structuredData[deviceId].temperature.push({ timestamp: dataPoint.timestamp, value: dataPoint.temperature / 10 });
                 structuredData[deviceId].humidity.push({ timestamp: dataPoint.timestamp, value: dataPoint.humidity });
                 structuredData[deviceId].brightness.push({ timestamp: dataPoint.timestamp, value: dataPoint.brightness });
                 structuredData[deviceId].conductivity.push({ timestamp: dataPoint.timestamp, value: dataPoint.conductivity });
             });
-            updateTimeseriesUI(structuredData);
+            updateTimeseriesUI(device_id, structuredData);
         })
         .catch(error => console.error('Error fetching data:', error));
 }
 
 
+
 initPage();
 // getData();
-// setInterval(getLatestData, pollingInterval*1000);
+setInterval(getLatestData, pollingInterval*1000);
