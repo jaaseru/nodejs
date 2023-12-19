@@ -54,9 +54,7 @@ function initPage() {
                 structuredDevices[selectedDevice].selected = true;
                 getData(selectedDevice, selectedInterval);
                 // remove the device from the dropdown list
-                let dropdown = document.getElementById('deviceDropdown');
-                let option = dropdown.querySelector(`option[value="${selectedDevice}"]`);
-                option.remove();
+                dropFromMenu(selectedDevice);
             });
 
             // Append elements to the header
@@ -82,6 +80,11 @@ function refreshDataForAllDevices(interval) {
 }
 
 
+function dropFromMenu(deviceId) {
+    let dropdown = document.getElementById('deviceDropdown');
+    let option = dropdown.querySelector(`option[value="${deviceId}"]`);
+    option.remove();
+}
 
 
 function createDeviceHTML(deviceNumber) {
