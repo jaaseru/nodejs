@@ -51,7 +51,7 @@ function initPage() {
                 let selectedDevice = dropdown.value;
                 let selectedInterval = document.querySelector('#intervalButtonGroup .active')?.value;
                 structuredDevices[selectedDevice].selected = true;
-                getData(selectedDevice, selectedInterval, device.device_name);
+                getData(selectedDevice, selectedInterval, dropdown.text);
             });
 
             // Append elements to the header
