@@ -170,7 +170,6 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
 
         let editNameButton = document.createElement('button');
         editNameButton.className = 'remove-button';
-        // add small pencil icon
         editNameButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
         editNameButton.addEventListener('click', () => {
             let newName = prompt('Enter new name');
@@ -462,6 +461,7 @@ function changeDeviceName(device, newName) {
             console.error('Error:', error)
             return false;    
         });
+    return true;
 }
 
 
