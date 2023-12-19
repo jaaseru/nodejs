@@ -37,7 +37,7 @@ function initPage() {
         .then(data => {
             data.forEach(device => {
                 let option = document.createElement('option');
-                option.value = device.device_id;
+                option.value = device.device_mac;
                 option.text = device.device_name;
                 dropdown.appendChild(option);
             });
