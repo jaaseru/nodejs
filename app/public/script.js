@@ -169,23 +169,15 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
         });
 
         let editNameButton = document.createElement('button');
-        editNameButton.className = 'edit-name-button';
+        editNameButton.className = 'remove-button';
         editNameButton.textContent = 'Edit';
         editNameButton.addEventListener('click', () => {
             let newName = prompt('Enter new name');
             if (newName) {
                 device.device_name = newName;
                 document.getElementById(`device_name_${deviceNumber}`).textContent = newName;
-                fetch(apiUrl + `/api/devices/${device.device_mac}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ device_name: newName, firmware: device.firmware })
-                })
-                    .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(error => console.error('Error:', error));
+                changeDeviceName(device, newName);
+                
             }
         });
 
@@ -195,7 +187,7 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
 
         let editNameDiv = container.querySelector('.edit-name-div');
         editNameDiv.appendChild(editNameButton);
-        
+
         document.body.appendChild(container);
     }
     // Update name, mac and firmware
@@ -449,6 +441,19 @@ function fetchLatestData(deviceId, latestTimestamp) {
         .catch(error => console.error('Error fetching data:', error));
 }
 
+
+function changeDeviceName(device, newName) {
+    fetch(apiUrl + `/api/devices/${device.device_mac}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ device_name: newName, firmware: device.firmware })
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+}
 
 
 initPage();
