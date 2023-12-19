@@ -352,10 +352,9 @@ function getData(device_id, interval) {
         .then(response => response.json())
         .then(rawData => {
             rawData.forEach(dataPoint => {
-                let deviceId = dataPoint.device_id;
 
-                if (!structuredData[deviceId]) {
-                    structuredData[deviceId] = {
+                if (!structuredData[device_id]) {
+                    structuredData[device_id] = {
                         energy: [],
                         temperature: [],
                         humidity: [],
@@ -364,11 +363,11 @@ function getData(device_id, interval) {
                     };
                 }
 
-                structuredData[deviceId].energy.push({ timestamp: dataPoint.timestamp, value: dataPoint.energy });
-                structuredData[deviceId].temperature.push({ timestamp: dataPoint.timestamp, value: dataPoint.temperature / 10 });
-                structuredData[deviceId].humidity.push({ timestamp: dataPoint.timestamp, value: dataPoint.humidity });
-                structuredData[deviceId].brightness.push({ timestamp: dataPoint.timestamp, value: dataPoint.brightness });
-                structuredData[deviceId].conductivity.push({ timestamp: dataPoint.timestamp, value: dataPoint.conductivity });
+                structuredData[device_id].energy.push({ timestamp: dataPoint.timestamp, value: dataPoint.energy });
+                structuredData[device_id].temperature.push({ timestamp: dataPoint.timestamp, value: dataPoint.temperature / 10 });
+                structuredData[device_id].humidity.push({ timestamp: dataPoint.timestamp, value: dataPoint.humidity });
+                structuredData[device_id].brightness.push({ timestamp: dataPoint.timestamp, value: dataPoint.brightness });
+                structuredData[device_id].conductivity.push({ timestamp: dataPoint.timestamp, value: dataPoint.conductivity });
             });
 
             console.log(structuredData);
