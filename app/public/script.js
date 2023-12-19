@@ -186,14 +186,10 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
         editNameButton.addEventListener('click', () => {
             let newName = prompt('Enter new name');
             if (newName) {
-                device.device_name = newName;
                 if (changeDeviceName(device, newName)) {
                     console.log("Name changed");
                     document.getElementById(`device_name_${deviceNumber}`).textContent = newName;
-                    // update dropdown list
-                    let dropdown = document.getElementById('deviceDropdown');
-                    let option = dropdown.querySelector(`option[value="${device.device_mac}"]`);
-                    option.text = newName;
+                    device.device_name = newName;
                 }
             }
         });
