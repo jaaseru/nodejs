@@ -17,7 +17,7 @@ function initPage() {
     // Create a button group for interval selection
     let intervalButtons = document.createElement('div');
     intervalButtons.id = 'intervalButtonGroup';
-    ['6h', '12h', '24h', '1w'].forEach(interval => {
+    ['6h', '12h', '24h', '1weeks'].forEach(interval => {
         let button = document.createElement('button');
         button.textContent = interval === '1w' ? '1 week' : interval;
         button.value = interval;
