@@ -165,7 +165,7 @@ function updateDeviceUI(device, deviceData, deviceNumber) {
             delete structuredData[device.device_mac];
         });
         container.innerHTML = createDeviceHTML(deviceNumber);
-        let buttonDiv = container.querySelector('#remove-button-div');
+        let buttonDiv = container.querySelector('.remove-button-div');
         buttonDiv.appendChild(removeButton);
         document.body.appendChild(container);
     }
