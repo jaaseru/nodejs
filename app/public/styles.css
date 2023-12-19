@@ -20,13 +20,11 @@ body {
     height: 50px;
     color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     position: fixed;
     top: 0;
     padding: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 .container {
@@ -42,14 +40,16 @@ body {
 }
 
 .remove-button {
-    position: inherit;
-    top: 0;
+    position: relative;
+    top: -350px;
     right: 0;
     background-color: lightgray;
     color: white;
     border: none;
     padding: 5px;
     font-size: 16px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
 }
 
