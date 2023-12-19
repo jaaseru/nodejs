@@ -28,8 +28,8 @@ function initPage() {
         });
         intervalButtons.appendChild(button);
     });
-    let p = document.createElement('p');
-    p.textContent = 'Range from<br>Last data';
+    let p = document.createElement('div');
+    p.textContent = 'Range from Last data';
     intervalButtons.appendChild(p);
     // set first button as active
     intervalButtons.querySelector('button').classList.add('active');
