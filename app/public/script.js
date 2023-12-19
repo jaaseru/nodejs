@@ -27,10 +27,10 @@ function initPage() {
             refreshDataForAllDevices(this.value);
         });
         intervalButtons.appendChild(button);
-        let p = document.createElement('p');
-        p.textContent = 'Range from\nLast data';
-        intervalButtons.appendChild(p);
     });
+    let p = document.createElement('p');
+    p.textContent = 'Range from<br>Last data';
+    intervalButtons.appendChild(p);
     // set first button as active
     intervalButtons.querySelector('button').classList.add('active');
 
