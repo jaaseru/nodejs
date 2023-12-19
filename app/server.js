@@ -142,7 +142,7 @@ app.put('/api/devices/:id', async (req, res) => {
 
 
 app.post('/api/data', async (req, res) => {
-  const insetDeviceQuery = 'INSERT INTO xiaomi_devices (device_id, device_name, firmware) VALUES ($1, $2, $3) ON CONFLICT (device_id) DO NOTHING';
+  const insetDeviceQuery = 'INSERT INTO xiaomi_devices (device_mac, device_name, firmware) VALUES ($1, $2, $3) ON CONFLICT (device_id) DO NOTHING';
   let err = await client.query(insetDeviceQuery, [req.body.device_id, req.body.device_name, req.body.firmware]);
   if (err.error) {
     console.error(err.error);
