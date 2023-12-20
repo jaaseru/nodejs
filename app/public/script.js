@@ -385,7 +385,7 @@ function updateMetricPlot(elementId, data, title) {
             yaxis: {
                 showticklabels: true,
                 side: 'right',
-                nticks: 2,
+                nticks: 3,
                 range: [minY - padding, maxY + padding] // Extend the y-axis range
             },
             hovermode: 'closest'
