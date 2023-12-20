@@ -43,6 +43,14 @@ body {
     justify-content: space-between;
 }
 
+.remove-button-div {
+    margin-top: -7px;
+}
+
+edit-name-div {
+    margin-top: -7px;
+}
+
 .remove-button {
     position: relative;
     background-color: lightgray;
