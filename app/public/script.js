@@ -115,7 +115,7 @@ function createDeviceHTML(deviceNumber) {
                 </div>
             </column>
             <column style="left: -30px">
-                <img src="custom_stick.png" alt="Xiaomi Flower Care" height="270px">
+                <img src="custom_stick.png" alt="Xiaomi Flower Care" height="100%">
             </column>
             <column>
                 <row>
@@ -378,7 +378,7 @@ function updateMetricPlot(elementId, data, title) {
 
         let layout = {
             title: title,
-            margin: { t: 15, l: 0, r: 32, b: 15 },
+            margin: { t: 18, l: 0, r: 32, b: 15 },
             autosize: true,
             titlefont: { size: 12 },
             xaxis: { 
