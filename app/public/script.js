@@ -115,7 +115,7 @@ function createDeviceHTML(deviceNumber) {
                 </div>
             </column>
             <column style="left: -30px">
-                <img src="custom_stick.png" alt="Xiaomi Flower Care" height="270px">
+                <img src="custom_stick.png" alt="Xiaomi Flower Care" height="290px" width="80px">
             </column>
             <column>
                 <row>
