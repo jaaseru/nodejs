@@ -112,8 +112,6 @@ function createDeviceHTML(deviceNumber) {
                         <div class="energy-level" id="energy_${deviceNumber}"></div>
                     </div>
                 </div>
-            </column>
-            <column style="left: -30px">
                 <img src="custom_stick.png" alt="Xiaomi Flower Care" height="270px">
             </column>
             <column>

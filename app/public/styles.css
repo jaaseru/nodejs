@@ -233,6 +233,7 @@ column {
 /* Style for individual sensor numeric containers */
 .sensor-numeric {
     display: flex;
+    padding-left: 3px;
     justify-content: flex-start; /* Center-align the content horizontally */
     align-items: self-start; /* Center-align the content vertically */
     flex-grow: 1; /* Allows each item to grow evenly */
