@@ -363,7 +363,16 @@ function updateMetricPlot(elementId, data, title) {
             margin: { t: 20, l: 5, r: 30, b: 5 },
             autosize: true,
             titlefont: { size: 12 },
-            xaxis: { showticklabels: false },
+            xaxis: { 
+                showticklabels: true,
+                tickformat: '%H:%M',
+                //only two ticks on x-axis
+                tickmode: 'linear',
+                tick0: 0,
+                dtick: 1000 * 60 * 60 * 12,
+                range: [new Date(data[data.length - 1].timestamp) - 1000 * 60 * 60 * 24, new Date(data[data.length - 1].timestamp) + 1000 * 60 * 60 * 1]
+                 
+            },
             yaxis: {
                 showticklabels: true,
                 side: 'right',
