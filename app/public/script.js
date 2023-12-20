@@ -378,7 +378,7 @@ function updateMetricPlot(elementId, data, title) {
 
         let layout = {
             title: title,
-            margin: { t: 20, l: 5, r: 30, b: 5 },
+            margin: { t: 20, l: 5, r: 30, b: 15 },
             autosize: true,
             titlefont: { size: 12 },
             xaxis: { 
