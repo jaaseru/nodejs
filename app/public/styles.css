@@ -143,13 +143,13 @@ row {
 
 .plot-container {
     width: 230px;  /* Adjust width as needed */
-    height: 50px; /* Adjust height for smaller plots */
+    height: 60px; /* Adjust height for smaller plots */
     margin-bottom: 0px; /* Spacing between plots */
 }
 /* plot-container for smaller view ports */
 @media only screen and (max-width: 400px) {
     .plot-container {
-        height: 50px;
+        height: 60px;
         width: 180px;
     }
 }

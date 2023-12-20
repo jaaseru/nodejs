@@ -260,7 +260,9 @@ function updateEnergyAndTime(deviceId, energy) {
     if (elementTimestamp) {
         const date = new Date(timestamp);
         const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false };
-        const prettyTimestamp = date.toLocaleDateString('NO', options);
+        // Pretty timestamp like "2 hours ago"
+        const prettyTimestamp = timeago.format(timestamp);
+        // const prettyTimestamp = date.toLocaleDateString('NO', options);
         elementTimestamp.textContent = prettyTimestamp;
         structuredDevices[deviceId].latestTimestampPlotted = timestamp;
     } else {
@@ -367,11 +369,7 @@ function updateMetricPlot(elementId, data, title) {
                 showticklabels: true,
                 tickformat: '%H:%M',
                 //only two ticks on x-axis
-                tickmode: 'linear',
-                tick0: 0,
-                dtick: 1000 * 60 * 60 * 12,
-                range: [new Date(data[data.length - 1].timestamp) - 1000 * 60 * 60 * 24, new Date(data[data.length - 1].timestamp) + 1000 * 60 * 60 * 1]
-                 
+                tickmode: 'linear'
             },
             yaxis: {
                 showticklabels: true,
