@@ -37,7 +37,8 @@ body {
 }
 
 .container {
-    max-width: 85vw;
+    max-width: 90vw;
+    overflow-x: hidden;
     width: 400px;
     height: 450px;
     max-height: 80vh;
