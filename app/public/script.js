@@ -383,12 +383,13 @@ function updateMetricPlot(elementId, data, title) {
             xaxis: { 
                 showticklabels: true,
                 tickformat: '%H:%M',
-                //only two ticks on x-axis
-                tickmode: 'linear'
+                tickmode: 'auto',
+                nticks: 3,
             },
             yaxis: {
                 showticklabels: true,
                 side: 'right',
+                nticks: 2,
                 range: [minY - padding, maxY + padding] // Extend the y-axis range
             },
             hovermode: 'closest'
