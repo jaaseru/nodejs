@@ -44,11 +44,11 @@ body {
 }
 
 .remove-button-div {
-    margin-top: -7px;
+    margin-top: -20px;
 }
 
-edit-name-div {
-    margin-top: -7px;
+.edit-name-div {
+    margin-top: -20px;
 }
 
 .remove-button {
