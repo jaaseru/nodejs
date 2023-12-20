@@ -80,7 +80,7 @@ h3 {
 }
 
 .sensor-data {
-    width: 110%; /* Adjust the width to leave space for the energy bar */
+    margin-left: -30px;
 }
 
 .energy-container {
