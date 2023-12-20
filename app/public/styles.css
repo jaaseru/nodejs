@@ -30,7 +30,7 @@ body {
 .container {
     max-width: 90vw;
     width: 400px;
-    height: 500px;
+    height: 450px;
     max-height: 80vh;
     background: #fff;
     padding: 10px;
@@ -145,7 +145,7 @@ row {
 }
 
 .data-row {
-    height: max-content;
+    height: 100%; /* Adjust the height as needed */
 }
 
 .plot-container {
