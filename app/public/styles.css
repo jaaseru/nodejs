@@ -53,12 +53,10 @@ body {
 }
 
 .remove-button-div {
-    margin-top: -35px;
     margin-left: -5px;
 }
 
 .edit-name-div {
-    margin-top: -35px;
     margin-left: -5px;
 }
 
@@ -165,6 +163,7 @@ row {
 
 .data-row {
     height: 90%; /* Adjust the height as needed */
+    align-items: left;
 }
 
 .plot-container {
