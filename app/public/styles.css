@@ -83,7 +83,6 @@ h3 {
 
 .sensor-data {
     margin-left: -15px;
-    margin-bottom: 15px;
 }
 
 .energy-container {
@@ -147,7 +146,7 @@ row {
 .plot-container {
     width: 230px;  /* Adjust width as needed */
     height: 60px; /* Adjust height for smaller plots */
-    margin-bottom: 0px; /* Spacing between plots */
+    margin-bottom: 10px; /* Spacing between plots */
 }
 /* plot-container for smaller view ports */
 @media only screen and (max-width: 400px) {
