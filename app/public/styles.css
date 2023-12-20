@@ -145,12 +145,12 @@ row {
 }
 
 .data-row {
-    height: 100%; /* Adjust the height as needed */
+    height: 90%; /* Adjust the height as needed */
 }
 
 .plot-container {
     width: 230px;  /* Adjust width as needed */
-    height: 60px; /* Adjust height for smaller plots */
+    height: 70px; /* Adjust height for smaller plots */
     margin-bottom: 0px; /* Spacing between plots */
 }
 /* plot-container for smaller view ports */
