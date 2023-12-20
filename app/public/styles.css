@@ -30,6 +30,8 @@ body {
 .container {
     max-width: 90vw;
     width: 400px;
+    height: 550px;
+    max-height: 80vh;
     background: #fff;
     padding: 10px;
     margin: 10px;
