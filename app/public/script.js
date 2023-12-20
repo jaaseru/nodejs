@@ -259,10 +259,25 @@ function updateEnergyAndTime(deviceId, energy) {
 
     if (elementTimestamp) {
         const date = new Date(timestamp);
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false };
-        // Pretty timestamp like "2 hours ago"
-        const prettyTimestamp = timeago.format(timestamp);
-        // const prettyTimestamp = date.toLocaleDateString('NO', options);
+        const now = new Date();
+        const diff = Math.abs(now - date) / 1000; // Time difference in seconds
+
+        let prettyTimestamp = '';
+
+        if (diff < 60) {
+            prettyTimestamp = `${Math.floor(diff)} seconds ago`;
+        } else if (diff < 3600) {
+            const minutes = Math.floor(diff / 60);
+            prettyTimestamp = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        } else if (diff < 86400) {
+            const hours = Math.floor(diff / 3600);
+            const minutes = Math.floor((diff % 3600) / 60);
+            prettyTimestamp = `${hours} hour${hours > 1 ? 's' : ''}, ${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        } else {
+            const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false };
+            prettyTimestamp = date.toLocaleDateString('en-US', options);
+        }
+
         elementTimestamp.textContent = prettyTimestamp;
         structuredDevices[deviceId].latestTimestampPlotted = timestamp;
     } else {
