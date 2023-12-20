@@ -27,6 +27,13 @@ body {
     padding: 20px;
 }
 
+@media only screen and (max-width: 400px) {
+    #header {
+        flex-direction: column;
+        height: 100px;
+    }
+}
+
 .container {
     max-width: 90vw;
     width: 400px;
