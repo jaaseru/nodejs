@@ -105,7 +105,7 @@ function createDeviceHTML(deviceNumber) {
             </column>
             <div class="edit-name-div"></div>
         </row>
-        <row>
+        <row class="data-row">
             <column>
                 <div class="energy-container">
                     <span class="data-title"></span>

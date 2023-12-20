@@ -144,6 +144,10 @@ row {
     align-items: center;
 }
 
+.data-row {
+    height: max-content;
+}
+
 .plot-container {
     width: 230px;  /* Adjust width as needed */
     height: 60px; /* Adjust height for smaller plots */
