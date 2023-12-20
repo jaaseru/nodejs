@@ -152,7 +152,6 @@ row {
     width: 230px;  /* Adjust width as needed */
     height: 60px; /* Adjust height for smaller plots */
     margin-bottom: 0px; /* Spacing between plots */
-    padding-bottom: 10px;
 }
 /* plot-container for smaller view ports */
 @media only screen and (max-width: 400px) {
