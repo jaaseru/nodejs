@@ -160,7 +160,7 @@ row {
     display: flex;
     padding: 5px;
     justify-content: space-between;
-    align-items: center;
+    align-items: top;
 }
 
 .data-row {
