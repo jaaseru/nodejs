@@ -8,6 +8,7 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    padding-top: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,10 +53,12 @@ body {
 
 .remove-button-div {
     margin-top: -35px;
+    margin-left: -5px;
 }
 
 .edit-name-div {
     margin-top: -35px;
+    margin-left: -5px;
 }
 
 .remove-button {
